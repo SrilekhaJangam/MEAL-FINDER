@@ -52,6 +52,34 @@ loadCategories();
 const openCategory = (name) => {
     window.location.href = `category.html?c=${name}`;
 };
+// 5. LOAD MEALS BY CATEGORY
+const loadMealsByCategory = async () => {
+    const title = document.getElementById("catTitle");
+    const list = document.getElementById("mealList");
+
+    if (!title || !list) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const categoryName = params.get("c");
+
+    title.innerText = categoryName;
+
+    const res = await fetch(FILTER_API + categoryName);
+    const data = await res.json();
+    const meals = data.meals;
+
+    meals.forEach(meal => {
+        list.innerHTML += `
+            <div class="card" onclick="openMeal('${meal.idMeal}')">
+                <img src="${meal.strMealThumb}">
+                <p>${meal.strMeal}</p>
+            </div>
+        `;
+    });
+};
+
+loadMealsByCategory();
+
 // 8. SEARCH FUNCTION (Homepage)
 const searchBtn = document.getElementById("searchBtn");
 
