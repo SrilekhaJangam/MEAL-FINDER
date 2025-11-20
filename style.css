@@ -1,19 +1,125 @@
-header{
-    background-color: #e16120;
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    color:white;
-    padding:5px 10px;
-}
-   
-.logo{
-    display:flex;
-    justify-content: space-evenly;
-    gap:10px;
-    align-items: center;
-     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
 }
 
+body {
+    background: #fafafa;
+}
+
+/* Navbar */
+.navbar {
+    background: #e86528;
+    padding: 15px 20px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    height: 100%;
+    width: 300px;
+    background: #fff;
+    padding: 30px;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.close-icon {
+    font-size: 25px;
+    cursor: pointer;
+    float: right;
+}
+
+.sidebar ul {
+    margin-top: 40px;
+}
+
+.sidebar li {
+    padding: 10px 0;
+    list-style: none;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+/* Hero */
+.hero {
+    height: 350px;
+    background: url('../assests/images/foodmunch_kitchen.jpg') center/cover;
+    text-align: center;
+    color: white;
+    padding-top: 80px;
+}
+
+.search-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.search-wrapper input {
+    width: 300px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+}
+
+.search-btn {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background: #e86528;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Section */
+.section {
+    padding: 30px;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
 
 
