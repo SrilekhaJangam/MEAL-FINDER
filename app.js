@@ -52,7 +52,9 @@ loadCategories();
 const openCategory = (name) => {
     window.location.href = `category.html?c=${name}`;
 };
-// 5. LOAD MEALS BY CATEGORY
+
+
+// 5. LOAD MEALS BY CATEGORY (category.html)
 const loadMealsByCategory = async () => {
     const title = document.getElementById("catTitle");
     const list = document.getElementById("mealList");
@@ -79,6 +81,7 @@ const loadMealsByCategory = async () => {
 };
 
 loadMealsByCategory();
+
 
 // 8. SEARCH FUNCTION (Homepage)
 const searchBtn = document.getElementById("searchBtn");
