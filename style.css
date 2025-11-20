@@ -62,7 +62,7 @@ body {
 /* Hero */
 .hero {
     height: 350px;
-    background: url('../assests/images/foodmunch_kitchen.jpg') center/cover;
+    background: url('./assets/images/kitchen.jpg') center/cover;
     text-align: center;
     color: white;
     padding-top: 80px;

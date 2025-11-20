@@ -1,4 +1,3 @@
-
 const toggleBtn = document.getElementById("toggleBtn");
 const closeBtn = document.getElementById("closeBtn");
 const sidebar = document.getElementById("sidebar");
@@ -14,22 +13,12 @@ if (closeBtn) {
         sidebar.style.right = "-300px";
     });
 }
-
-
-
-// --------------------------------------
 // 2. API LINKS
-// --------------------------------------
 const CATEGORIES_API = "https://www.themealdb.com/api/json/v1/1/categories.php";
 const SEARCH_API = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const FILTER_API = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
 const DETAILS_API = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
-
-
-
-// --------------------------------------
 // 3. LOAD CATEGORIES ON HOMEPAGE
-// --------------------------------------
 const loadCategories = async () => {
     const box = document.getElementById("categoryList");
     const sideList = document.getElementById("sideList");
@@ -59,21 +48,11 @@ const loadCategories = async () => {
 };
 
 loadCategories();
-
-
-
-// --------------------------------------
 // 4. OPEN CATEGORY PAGE
-// --------------------------------------
 const openCategory = (name) => {
     window.location.href = `category.html?c=${name}`;
 };
-
-
-
-// --------------------------------------
 // 8. SEARCH FUNCTION (Homepage)
-// --------------------------------------
 const searchBtn = document.getElementById("searchBtn");
 
 if (searchBtn) {
