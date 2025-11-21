@@ -82,6 +82,11 @@ const loadMealsByCategory = async () => {
 
 loadMealsByCategory();
 
+// 6. OPEN MEAL DETAILS PAGE
+// --------------------------------------
+const openMeal = (id) => {
+    window.location.href = `meal.html?id=${id}`;
+};
 
 // 8. SEARCH FUNCTION (Homepage)
 const searchBtn = document.getElementById("searchBtn");
