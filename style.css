@@ -29,8 +29,9 @@ body {
   z-index: 40;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
 }
-.navbar a{
-  color:white;
+
+.navbar a {
+  color: white;
   text-decoration: none;
 }
 
@@ -110,7 +111,7 @@ body {
 /* HERO */
 .hero {
   height: 360px;
-  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('./assets/images/image.png') center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('./assets/images/image.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -321,11 +322,26 @@ body {
 }
 
 .ingredients .ing {
-  background: rgba(255, 255, 255, 0.08);
   padding: 6px 10px;
   border-radius: 18px;
   font-size: 13px;
 }
+
+
+.ing-num {
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #27b5ad;        /* teal color */
+  color: #fff;
+  display: inline-grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 8px;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
 
 /* measurement box */
 .measure-box {
@@ -509,7 +525,8 @@ body {
   color: #fff;
   border-radius: 2px;
   margin-bottom: 22px;
-  position: relative;  /* NOT sticky now */
+  position: relative;
+  /* NOT sticky now */
   z-index: 20;
   box-shadow: 0 6px 18px rgba(232, 101, 40, 0.12);
 }
@@ -536,6 +553,11 @@ body {
 .mini-logo i {
   font-size: 14px;
 }
+
+
+
+
+
 
 /* MEAL DETAILS layout: two column (image left, metadata right) */
 .meal-details {
@@ -648,6 +670,9 @@ body {
   font-size: 12px;
 }
 
+
+
+
 /* Reflow for smaller screens */
 @media (max-width:1000px) {
   .meal-details {
@@ -662,7 +687,73 @@ body {
 
 
 
+/* ----- Source, tags, and measure grid styling ----- */
+.meal-meta {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
 
+.source-link {
+  color: #100f0f;
+  text-decoration: none;
+}
 
+.source-link:hover {
+  text-decoration: underline;
+}
 
+.tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #fff;
+  color: #e86528;
+  border: 1px solid #f4d8cc;
+  font-size: 12px;
+  font-weight: 700;
+}
 
+.measure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.measure-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.measure-key {
+  min-width: 28px;
+  height: 28px;
+  /* background: #e86528; */
+  color: #e86528;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 12px;
+  
+}
+
+.measure-text {
+  line-height: 1.2;
+}
+
+.measure-dot {
+  color: #e86528;
+  margin: 0 6px;
+}
+
+/* small muted style */
+.muted {
+  color: #888;
+  font-style: italic;
+  font-size: 13px;
+}

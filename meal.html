@@ -1,27 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Details</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Meal Details</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body>
 
-    <header class="navbar">
-        <div class="logo"><i class="fa-solid fa-house"></i> MEAL FINDER</div>
-    </header>
+  <!-- TOP HEADER (STICKY) -->
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <i class="fa-solid fa-house"></i>
+      <span>MEAL FINDER</span>
+    </a>
+    <button id="toggleBtn" class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+  </header>
 
-    <section class="section">
-        <div id="mealDetails"></div>
+  <!-- Sidebar / right drawer (same as index so toggle works) -->
+<aside id="sidebar" class="sidebar" aria-hidden="true">
+    <button id="closeBtn" class="close-icon" aria-label="Close menu"><i class="fa-solid fa-circle-xmark"></i></button>
+    <div class="side-header">
+       
+    </div>
+    <ul id="sideList" class="side-list"></ul>
+</aside>
+
+
+
+<!-- HERO (copied from index) -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="search-wrapper">
+            <input id="searchInput" class="search-input" type="text" placeholder="Search recipes here ..." />
+            <button id="searchBtn" class="search-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <h1 class="hero-title">What are your favorite cuisines?</h1>
+        <p class="hero-sub">PERSONALIZE YOUR EXPERIENCE</p>
+    </div>
+</section>
+
+
+
+  <main class="section page-content">
+    <h2 class="page-title">MEAL DETAILS</h2>
+
+    <!-- MINI HEADER (NOT STICKY ANYMORE) -->
+    <div class="mini-hero">
+      <div class="mini-inner">
+
+        <a href="index.html" class="mini-logo" id="miniLogo">
+          <i class="fa-solid fa-house"></i>
+          <span id="miniTitle">MEAL FINDER</span>
+        </a>
+
+        <button class="mini-menu icon-btn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+
+    <!-- FULL MEAL DETAILS -->
+    <div id="mealDetails" class="meal-details"></div>
+
+    <!-- BOTTOM CATEGORIES -->
+    <section class="section categories-section">
+      <div class="section-header">
+        <h2>CATEGORIES</h2>
+        <div class="underline"></div>
+      </div>
+      <div id="categoryList" class="grid"></div>
     </section>
+  </main>
 
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
-
 </html>
+
+
+
+
 
 
 

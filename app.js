@@ -17,6 +17,7 @@ const sideListEl = document.getElementById("sideList");
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const sectionHeaderTitle = document.querySelector(".section-header h2");
+const crumbText = document.getElementById("crumbText");
 
 // ===============================
 // SIDEBAR
@@ -53,11 +54,15 @@ function mealCard(meal, categoryName = "") {
     ? `<div class="badge">${meal.strCategory}</div>`
     : "";
 
+  // Choose a thumbnail whether this is a meal or a category object
+  const thumb = meal.strMealThumb || meal.strCategoryThumb || "";
+  const title = meal.strMeal || meal.strCategory || "";
+
   return `
-    <div class="card" onclick="openMeal('${meal.idMeal}')">
+    <div class="card" onclick="openMeal('${meal.idMeal || ""}')">
       ${badge}
-      <img src="${meal.strMealThumb}" loading="lazy" />
-      <p>${meal.strMeal}</p>
+      <img src="${thumb}" loading="lazy" alt="${title}" />
+      <p>${title}</p>
     </div>
   `;
 }
@@ -71,6 +76,7 @@ function openCategory(name) {
 window.openCategory = openCategory;
 
 function openMeal(id) {
+  if (!id) return;
   window.location.href = `meal.html?id=${encodeURIComponent(id)}`;
 }
 window.openMeal = openMeal;
@@ -82,7 +88,7 @@ async function loadCategories() {
   try {
     const res = await fetch(CATEGORIES_API);
     const data = await res.json();
-    const categories = data.categories;
+    const categories = data.categories || [];
 
     if (categoryListEl) {
       categoryListEl.innerHTML = "";
@@ -115,13 +121,15 @@ async function loadCategories() {
 // ===============================
 if (searchBtn) {
   searchBtn.onclick = () => {
-    const q = searchInput.value.trim();
+    const q = (searchInput && searchInput.value || "").trim();
     if (q) doSearch(q);
   };
 
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") searchBtn.click();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") searchBtn.click();
+    });
+  }
 }
 
 async function doSearch(text) {
@@ -134,7 +142,9 @@ async function doSearch(text) {
     if (sectionHeaderTitle) sectionHeaderTitle.textContent = "MEALS";
 
     // Style grid as meal grid
-    categoryListEl.classList.add("grid-cards");
+    if (categoryListEl) categoryListEl.classList.add("grid-cards");
+    if (!categoryListEl) return;
+
     categoryListEl.innerHTML = "";
 
     if (!meals) {
@@ -163,14 +173,14 @@ async function loadMealsByCategory() {
 
   const params = new URLSearchParams(window.location.search);
   const categoryName = params.get("c");
-  titleEl.textContent = categoryName;
+  titleEl.textContent = categoryName || "";
 
   // Load description
   try {
     const resCat = await fetch(CATEGORIES_API);
     const catData = await resCat.json();
 
-    const match = catData.categories.find((c) =>
+    const match = (catData.categories || []).find((c) =>
       slugEquals(c.strCategory, categoryName)
     );
 
@@ -180,6 +190,8 @@ async function loadMealsByCategory() {
           <h4 class="desc-title">${match.strCategory}</h4>
           <p class="desc-text">${match.strCategoryDescription}</p>
         </div>`;
+    } else {
+      descEl.innerHTML = "No description available.";
     }
   } catch (err) {
     descEl.innerHTML = "No description available.";
@@ -189,7 +201,7 @@ async function loadMealsByCategory() {
   try {
     const res = await fetch(FILTER_API + encodeURIComponent(categoryName));
     const data = await res.json();
-    const meals = data.meals;
+    const meals = data.meals || [];
 
     listEl.innerHTML = "";
     meals.forEach((m) => {
@@ -209,77 +221,85 @@ async function loadMealDetails() {
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
+  if (!id) return;
 
   try {
-    const res = await fetch(DETAILS_API + id);
+    const res = await fetch(DETAILS_API + encodeURIComponent(id));
     const data = await res.json();
+    if (!data || !data.meals) return;
     const meal = data.meals[0];
 
-    // Set mini header title
+    // Update crumb & mini title
+    if (crumbText) crumbText.textContent = meal.strMeal || "";
     const miniTitle = document.getElementById("miniTitle");
-    if (miniTitle) miniTitle.textContent = meal.strMeal;
+    if (miniTitle) miniTitle.textContent = meal.strMeal || "";
 
-    // Ensure mini logo goes home
+    // Home links
     const miniLogo = document.getElementById("miniLogo");
-    if (miniLogo) {
-      miniLogo.onclick = () => (window.location.href = "index.html");
-    }
-
-    // Ensure top logo goes home
+    if (miniLogo) miniLogo.onclick = () => (window.location.href = "index.html");
     const topLogo = document.querySelector(".navbar .logo");
-    if (topLogo) {
-      topLogo.onclick = () => (window.location.href = "index.html");
-    }
+    if (topLogo) topLogo.onclick = () => (window.location.href = "index.html");
 
-    // Ingredients
+    // Ingredients + measures
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
       const ing = meal[`strIngredient${i}`];
       const measure = meal[`strMeasure${i}`];
-      if (ing) ingredients.push({ ing, measure });
+      if (ing && ing.trim()) ingredients.push({ key: i, ing: ing.trim(), measure: (measure||'').trim() });
     }
+
+    // Tags (comma separated in API)
+    const tags = (meal.strTags || "").split(",").map(t => t.trim()).filter(Boolean);
+
+    // Short/truncated source link to display (prefer strSource, fallback to youtube)
+    const sourceUrl = meal.strSource || meal.strYoutube || "";
+    const shortSource = sourceUrl ? (sourceUrl.length > 40 ? sourceUrl.slice(0, 38) + "..." : sourceUrl) : "";
 
     // Build HTML
     detailsEl.innerHTML = `
       <div class="meal-left">
-        <img src="${meal.strMealThumb}" />
+        <img src="${meal.strMealThumb || ''}" alt="${meal.strMeal || ''}" />
       </div>
 
       <div class="meal-right">
-        <h3>${meal.strMeal}</h3>
-        <div class="meal-meta"><strong>Category:</strong> ${meal.strCategory}</div>
+        <h3>${meal.strMeal || ''}</h3>
+
+        <div class="meal-meta">
+          <div><strong>CATEGORY:</strong> ${meal.strCategory || '—'}</div>
+          <div style="margin-top:10px;"><strong>Source:</strong>
+            ${ sourceUrl ? `<a href="${sourceUrl}" target="_blank" rel="noopener noreferrer" class="source-link">${shortSource}</a>` : `<span class="muted">No source</span>`}
+          </div>
+          <div style="margin-top:10px;"><strong>Tags:</strong>
+            ${ tags.length ? tags.map(t => `<span class="tag">${t}</span>`).join(" ") : `<span class="muted">none</span>` }
+          </div>
+        </div>
 
         <div class="ingredients">
           <div style="font-weight:700;">Ingredients</div>
-          <div class="ing-list">
-            ${ingredients
-              .map((i) => `<div class="ing"><i class="fa-solid fa-circle"></i>${i.ing}</div>`)
-              .join("")}
-          </div>
+          ${ingredients.map(i => `<div class="ing"><span class="ing-num">${i.key}</span> ${i.ing}</div>`).join("")}
+
         </div>
       </div>
 
       <div class="full-width-box">
+      
         <div class="measure-box">
-          <div style="font-weight:700;">Measure:</div>
-          <div class="measure-row">
-            ${ingredients
-              .map((i) => `<div>${i.measure} <span style="color:#e86528">•</span> ${i.ing}</div>`)
-              .join("")}
+          <div style="font-weight:700; margin-bottom:10px;">Measure:</div>
+          <div class="measure-grid">
+            ${ingredients.map(i => `
+              <div class="measure-item">
+                <span class="measure-key"><i class="fa-solid fa-key"></i></span>
+                <div class="measure-text">${i.measure || '—'} <span class="measure-dot"></span> ${i.ing}</div>
+              </div>
+            `).join("")}
           </div>
         </div>
 
+        <!-- Instructions -->
         <div class="instructions">
-          <div style="font-weight:700;">Instructions:</div>
+          <div style="font-weight:700; margin-bottom:10px;">Instructions:</div>
           <ul>
-            ${meal.strInstructions
-              .split("\n")
-              .filter(Boolean)
-              .map(
-                (step) =>
-                  `<li><span class="tick"><i class="fa-solid fa-check"></i></span>${step}</li>`
-              )
-              .join("")}
+            ${String(meal.strInstructions || "").split(/\r?\n/).filter(Boolean).map(step => `<li><span class="tick"><i class="fa-solid fa-check"></i></span>${step}</li>`).join("")}
           </ul>
         </div>
       </div>
