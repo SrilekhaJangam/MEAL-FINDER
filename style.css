@@ -419,7 +419,7 @@ body {
   }
 }
 
-/* Category description box (like the screenshot) */
+/* Category description box */
 .category-desc {
   margin: 16px 0 28px;
 }
@@ -429,7 +429,7 @@ body {
   border: 2px solid #f2a98b;
   /* light/orange border; adjust to match */
   border-left: 8px solid #e86528;
-  /* thicker left accent to mimic image */
+  /* thicker left accent */
   padding: 18px 20px;
   border-radius: 4px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
@@ -454,10 +454,9 @@ body {
 
 
 /* ========================================== */
-/* Full width block for measure + instructions */
 .full-width-box {
   grid-column: 1 / -1;
-  /* makes it stretch across entire page */
+  
   margin-top: 25px;
   display: grid;
   gap: 22px;
@@ -465,10 +464,10 @@ body {
 
 
 
-/* --- Hero banner (thin cropped image at top) --- */
+/* --- Hero banner */
 .hero-banner {
   height: 90px;
-  /* small cropped banner like screenshot top */
+  /* small cropped banner*/
   overflow: hidden;
   background: #222;
 }
@@ -481,7 +480,7 @@ body {
   filter: saturate(.95) contrast(.98);
 }
 
-/* Breadcrumb ribbon - orange thin bar above content */
+/* Breadcrumb ribbon*/
 .page-ribbon {
   background: #e86528;
   color: #fff;
@@ -518,8 +517,7 @@ body {
   letter-spacing: 2px;
 }
 
-/* MINI HERO - narrow orange bar that stays on top of meal region */
-/* MINI HERO - Not sticky */
+/* MINI HERO*/
 .mini-hero {
   background: #e86528;
   color: #fff;
@@ -559,7 +557,7 @@ body {
 
 
 
-/* MEAL DETAILS layout: two column (image left, metadata right) */
+/* MEAL DETAILS  */
 .meal-details {
   display: grid;
   grid-template-columns: 420px 1fr;
@@ -576,8 +574,7 @@ body {
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
-/* right card: metadata box (white with small orange ingredient box) */
-.meal-right {
+meal-right {
   background: #fff;
   border-radius: 6px;
   padding: 12px 16px;
@@ -597,7 +594,7 @@ body {
   margin-bottom: 12px;
 }
 
-/* Ingredients box (orange) */
+/* Ingredients box */
 .ingredients {
   background: #e86528;
   color: #fff;
@@ -628,7 +625,7 @@ body {
   font-size: 10px;
 }
 
-/* Measure box — white rectangle with thin border shown in screenshot */
+/* Measure box  */
 .measure-box {
   margin-top: 18px;
   border: 1px solid #eee;

@@ -19,6 +19,7 @@ const searchInput = document.getElementById("searchInput");
 const sectionHeaderTitle = document.querySelector(".section-header h2");
 const crumbText = document.getElementById("crumbText");
 
+
 // ===============================
 // SIDEBAR
 // ===============================
@@ -39,9 +40,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// ===============================
-// HELPERS
-// ===============================
+
 function slugEquals(a, b) {
   return String(a || "").trim().toLowerCase() === String(b || "").trim().toLowerCase();
 }
@@ -54,7 +53,7 @@ function mealCard(meal, categoryName = "") {
     ? `<div class="badge">${meal.strCategory}</div>`
     : "";
 
-  // Choose a thumbnail whether this is a meal or a category object
+  
   const thumb = meal.strMealThumb || meal.strCategoryThumb || "";
   const title = meal.strMeal || meal.strCategory || "";
 
@@ -309,9 +308,9 @@ async function loadMealDetails() {
   }
 }
 
-// ===============================
+
 // INITIALIZER
-// ===============================
+
 document.addEventListener("DOMContentLoaded", () => {
   loadCategories();
 
