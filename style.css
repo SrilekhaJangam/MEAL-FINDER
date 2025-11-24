@@ -537,6 +537,130 @@ body {
   font-size: 14px;
 }
 
+/* MEAL DETAILS layout: two column (image left, metadata right) */
+.meal-details {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 30px;
+  align-items: start;
+  margin-top: 6px;
+}
+
+/* left card: photo */
+.meal-left img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* right card: metadata box (white with small orange ingredient box) */
+.meal-right {
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.meal-right h3 {
+  color: #e86528;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.meal-meta {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+/* Ingredients box (orange) */
+.ingredients {
+  background: #e86528;
+  color: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.ingredients .ing-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ingredients .ing {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.ingredients .ing i {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 4px;
+  border-radius: 50%;
+  font-size: 10px;
+}
+
+/* Measure box — white rectangle with thin border shown in screenshot */
+.measure-box {
+  margin-top: 18px;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.measure-box .measure-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #444;
+}
+
+/* Instructions section */
+.instructions {
+  margin-top: 18px;
+}
+
+.instructions ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.instructions li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  color: #444;
+  font-size: 14px;
+}
+
+.instructions li .tick {
+  color: #e86528;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+/* Reflow for smaller screens */
+@media (max-width:1000px) {
+  .meal-details {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-hero {
+    position: sticky;
+    top: 72px;
+  }
+}
+
+
 
 
 
