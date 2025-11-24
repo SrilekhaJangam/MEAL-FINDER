@@ -1,4 +1,4 @@
-/* Reset & base */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -55,7 +55,7 @@ body {
   cursor: pointer;
 }
 
-/* Sidebar (right drawer) */
+/* Sidebar*/
 .sidebar {
   position: fixed;
   top: 0;
